@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <title>径向动画实例</title>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+
+        <!-- Full screen -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+        <!-- iOS mobile-web-app -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="径向动画" />
+
+        <!-- Android mobile-web-app -->
+        <meta name="mobile-web-app-capable" content="yes" />
+
+        <!-- Browser -->
+        <link rel="shortcut icon" href="http://cdn.gsxservice.com/asset/img/logo.ico" type="image/x-icon" />
+
+        <!-- Other -->
+        <meta name="format-detection" content="telephone=no">
+
+    </head>
+    <body>
+
+       <style type="text/css">
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                width: 300px;
+                height: 300px;
+                margin: 50px auto;
+                position: relative;
+            }
+            .container .circle {
+                display: block;
+                width: 300px;
+                height: 300px;
+                transform: scale(0);
+                transition: all 0.5s;
+            }
+            .container .circle.active {
+                transform: scale(1);
+            }
+            .circle li {
+                list-style: none;
+                position: absolute;
+                height: 40px;
+                width: 40px;
+                line-height: 40px;
+                text-align: center;
+                border-radius: 50%;
+                background: red;
+            }
+            .btn {
+                text-align: center;
+            }
+            
+       </style>
+        
+        <div class="container">
+            <ul class="circle">
+                <li>A</li>
+                <li>B</li>
+                <li>C</li>
+                <li>D</li>
+                <li>E</li>
+                <li>F</li>
+                <li>G</li>
+            </ul>
+        </div>
+
+        <div class="btn">
+            <a href="javascript:;">click me，查看径向动画</a>
+        </div>
+
+        <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+        <script type="text/javascript">
+            var circle = $('.circle');
+            var radius = circle.width() / 2;
+            var items = circle.find('li');
+            var gap = 360 / items.length;
+
+            items.each(function (index, item) {
+
+                var angle = (index * gap * Math.PI / 180).toFixed(2);
+                var x = radius * Math.cos(angle) + radius;
+                var y = radius * Math.sin(angle) + radius;
+
+                $(item).css({
+                    left: x + 'px',
+                    top: y + 'px'
+                });
+            });
+
+            $('.btn a').click(function () {
+                if (!circle.hasClass('active')) {
+                    circle.addClass('active');
+                } else {
+                    circle.removeClass('active');
+                }
+            });
+
+        </script>
+    </body>
+</html>
